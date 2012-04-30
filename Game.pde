@@ -7,12 +7,14 @@ public class Game {
   int outerBoundary = 100;
   public Game() {
   }
+  
   public void init() {
     mode=PLAYING;
     gameobjects = new ArrayList<GameObject>();
     for (int i = 0; i < 10; i++)
       gameobjects.add(new Platform(i*10, i*50, 60,20, -1*int(random(50)), 1));
   }//end method init
+  
   public void tick() {
     if (mode==PLAYING) {
       for (int i = gameobjects.size()-1; i>=0; i--) {

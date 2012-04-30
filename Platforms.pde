@@ -5,7 +5,7 @@ public class Platform extends GameObject{
     this.setPos(new PVector(x,y));
     this.setVel(new PVector(xVel, yVel));
     platformSize = new PVector();
-    this.setAccel(new PVector(1,1));
+    this.setAccel(new PVector(1,1)); //default
     platformSize.x = width;
     platformSize.y = height;
     mycolor = color(128); //to change eventually
@@ -23,6 +23,6 @@ public class Platform extends GameObject{
    pos.y += vel.y*(1/(float)fRate);
    vel.x += accel.x*(1/(float)fRate);
    vel.y += accel.y*(1/(float)fRate);
+   
   }
-  
 }
