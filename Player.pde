@@ -1,3 +1,4 @@
 //PLAYER CLASS FOR ALL SPECIAL ITEMS IN THE GAME (derived from GameObjects)
+public class Player extends GameObject{
 public class Player{
 }
