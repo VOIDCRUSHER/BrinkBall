@@ -6,16 +6,14 @@ int windowWidth = 800;
 int windowHeight = 600;
 void setup() { 
   size(windowWidth, windowHeight, OPENGL);
-  frameRate(30);
+  frameRate(fRate);
   brinkball = new Game();
   brinkball.init();
-  
 } 
 
 void draw() { 
   background(0);
   brinkball.tick();
   brinkball.draw();
-
 }
 
