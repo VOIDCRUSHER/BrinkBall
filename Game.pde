@@ -11,6 +11,7 @@ public class Game{
   public void tick(){
     if(mode==PLAYING){
       for(GameObject obj:gameobjects){obj.tick();}
+      ellipse(50,50,80,40);
     }
     else if(mode==PAUSEMENU){}
     else if(mode==ENDMENU){}
