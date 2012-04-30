@@ -18,5 +18,6 @@ public abstract class GameObject{
 	public void setAccel(float ax,float ay){accel.x=ax;accel.y=ay;}
 	public void setImg(PImage img){this.img = img;}
 	//Others
+        public void tick(){}
 	public void draw(){}
 }
