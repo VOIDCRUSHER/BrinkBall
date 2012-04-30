@@ -1,7 +1,11 @@
+Game brinkball;
 void setup(){ 
-	size(200,200); 
+	size(800,600,OPENGL);
+        frameRate(30);
+        brinkball = new Game();
+        brinkball.init();
 } 
  
 void draw(){ 
-	ellipse(50,50,80,80); 
+	brinkball.tick();        
 } 
