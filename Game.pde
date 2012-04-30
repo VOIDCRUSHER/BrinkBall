@@ -11,7 +11,7 @@ public class Game {
     mode=PLAYING;
     gameobjects = new ArrayList<GameObject>();
     for (int i = 0; i < 10; i++)
-      gameobjects.add(new Block(i*10, i*50, 5, 5, -50, -1));
+      gameobjects.add(new Block(i*10, i*50, 100, 10, -50, 1));
   }//end method init
   public void tick() {
     if (mode==PLAYING) {

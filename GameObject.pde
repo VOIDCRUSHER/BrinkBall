@@ -14,7 +14,7 @@ public abstract class GameObject{
 	public void setPos(int x,int y){pos.x=x; pos.y=y;}
 	public void setVel(PVector vel){this.vel=vel;}
 	public void setVel(float dx,float dy){vel.x=dx;vel.y=dy;}
-	public void setAccel(PVector accel){this.vel=accel;}
+	public void setAccel(PVector accel){this.accel=accel;}
 	public void setAccel(float ax,float ay){accel.x=ax;accel.y=ay;}
 	public void setImg(PImage img){this.img = img;}
 	//Others
