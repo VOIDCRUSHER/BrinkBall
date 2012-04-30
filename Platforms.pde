@@ -24,4 +24,5 @@ public class Platform extends GameObject{
    vel.x += accel.x*(1/(float)fRate);
    vel.y += accel.y*(1/(float)fRate);
   }
+  
 }
