@@ -1,20 +1,48 @@
 import java.util.ArrayList;
-public class Game{
-  public final int STARTMENU=0,PAUSEMENU=1,ENDMENU=2, PLAYING=3;
+public class Game {
+  public final int STARTMENU=0, PAUSEMENU=1, ENDMENU=2, PLAYING=3;
   public int mode;
-  public ArrayList<GameObject> gameobjects;
-  
-  public void init(){
+  public ArrayList<GameObject> gameobjects = new ArrayList<GameObject>();
+
+  int outerBoundary = 100;
+  public Game() {
+  }
+  public void init() {
     mode=PLAYING;
     gameobjects = new ArrayList<GameObject>();
+    for (int i = 0; i < 10; i++)
+      gameobjects.add(new Block(i*10, i*50, 100, 10, -50, 1));
   }//end method init
+<<<<<<< HEAD
   public void tick(){
     if(mode==PLAYING){
       for(GameObject obj:gameobjects){obj.tick();}
       ellipse(50,50,80,40);
+=======
+  public void tick() {
+    if (mode==PLAYING) {
+      for (int i = gameobjects.size()-1; i>=0; i--) {
+        gameobjects.get(i).tick();
+        PVector pos = gameobjects.get(i).getPos();
+        if (pos.x < -1*outerBoundary || pos.x > windowWidth+outerBoundary || pos.y < -1*outerBoundary || pos.y > windowHeight+outerBoundary)
+          gameobjects.remove(i);
+      }
     }
-    else if(mode==PAUSEMENU){}
-    else if(mode==ENDMENU){}
-    else if(mode==STARTMENU){}
+    else if (mode==PAUSEMENU) {
+    }
+    else if (mode==ENDMENU) {
+    }
+    else if (mode==STARTMENU) {
+>>>>>>> 12cbfae0aafbe20357848832fa8247468f52b3fc
+    }
   }//end method tick()
+
+
+  public void draw() {
+    for (GameObject obj:gameobjects) {
+      obj.draw();
+    }
+    println("size: " + gameobjects.size());
+  }
 }//end class Game
+

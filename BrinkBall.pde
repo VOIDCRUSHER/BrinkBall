@@ -1,11 +1,21 @@
+import processing.opengl.*;
+
 Game brinkball;
-void setup(){ 
-	size(800,600,OPENGL);
-        frameRate(30);
-        brinkball = new Game();
-        brinkball.init();
+int fRate = 30;
+int windowWidth = 800;
+int windowHeight = 600;
+void setup() { 
+  size(windowWidth, windowHeight, OPENGL);
+  frameRate(30);
+  brinkball = new Game();
+  brinkball.init();
+  
 } 
- 
-void draw(){ 
-	brinkball.tick();        
-} 
+
+void draw() { 
+  background(0);
+  brinkball.tick();
+  brinkball.draw();
+
+}
+
