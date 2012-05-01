@@ -18,20 +18,3 @@ void draw() {
   brinkball.tick();
   brinkball.draw();
 }
-
-void keyPressed() {
-  switch(keyCode) {
-    case RIGHT: right = true; break;
-    case LEFT: left = true; break;
-    case UP: up = true; break;
-    case DOWN: down = true; break;
-  }
-}
-void keyReleased() {
-  switch(keyCode) {
-    case RIGHT: right = false; break;
-    case LEFT: left = false; break;
-    case UP: up = false; break;
-    case DOWN: down = false; break;
-  }
-}
