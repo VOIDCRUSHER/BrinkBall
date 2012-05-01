@@ -23,6 +23,7 @@ public class Game {
   
   public void tick() {
     if (mode==PLAYING) {
+      player.tick();
       for (int i = 0; i < gameobjects.size(); i++) {
         // advance all the game objects one time step
         gameobjects.get(i).tick();

@@ -1,4 +1,4 @@
-//PLAYER CLASS FOR ALL SPECIAL ITEMS IN THE GAME (derived from GameObjects)
+//PLAYER CLASS (derived from GameObjects)
 public class Player extends GameObject{
   ArrayList<GameObject> gameobjects;
   Player(int x, int y, ArrayList<GameObject> gameobjects) {
@@ -11,7 +11,7 @@ public class Player extends GameObject{
   void draw() {
     PVector pos = this.getPos();
     fill(mycolor);
-    rect(pos.x, pos.y, mywidth, myheight);
+    ellipse(pos.x, pos.y, mywidth, myheight);
   }
   void tick() {
     for (GameObject gO: gameobjects)
