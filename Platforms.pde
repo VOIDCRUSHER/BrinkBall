@@ -4,7 +4,7 @@ public class Platform extends GameObject{
   Platform(int x, int y, int mywidth, int myheight, int xVel, int yVel) {
     super(x,y,mywidth,myheight,xVel,yVel);
   }
-  
+  Platform(){super();}
   void draw() {
     PVector pos = this.getPos();
     fill(mycolor);

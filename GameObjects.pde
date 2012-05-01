@@ -17,7 +17,7 @@ public abstract class GameObject{
             this.img = img;
         }
         public GameObject(int x,int y,int mywidth, int myheight,float dx, float dy){
-            this(new PVector(x,y),new PVector(dx,dy),new PVector(1,1),mywidth,myheight,color(128),null);
+            this(new PVector(x,y),new PVector(dx,dy),new PVector(0,0),mywidth,myheight,color(128),null);
         }
         public GameObject(){this((int)random(windowWidth),(int)random(windowHeight),60,20,random(-80.0,80.0)/fRate,random(-40,40.0)/fRate);}
         //Getters
@@ -47,7 +47,6 @@ public abstract class GameObject{
         }
 	public void draw(){}
         public boolean collidesWith(GameObject obj){
-          Rectangle2D objbounds = obj.getBoundingBox();
-          return getBoundingBox().intersects(objbounds.getX(), objbounds.getY(), objbounds.getWidth(),objbounds.getHeight());
+          return getBoundingBox().intersects(obj.getBoundingBox());
         }
 }
