@@ -23,7 +23,7 @@ public class Director {
   public Director(Game g) { 
     this.game = g;
     platformVelDir = 1; //NESW
-    numPlatforms = 10;
+    numPlatforms = 5;
     targetPlatforms = false;
     difficulty = 0;
     manualMode =false;
@@ -48,10 +48,14 @@ public class Director {
     //Example: if the game/player direction is to the RIGHT (--->) 
     //game objects also spawn on the right, but move to the left
     
+    numPlatforms = 5+ (int) (difficulty/.1);
+    game.player.setWidth(20+(int) (difficulty/.05));
+    game.player.setHeight(20+(int) (difficulty/.05));
+    
     //change colors randomly
-    int rand = (int) random(100);
+    int rand = (int) random(100-(int) (difficulty/.03));
     if (rand == 0) game.player.setColor(getRandomColor());
-    rand = (int) random(100);
+    rand = (int) random(100 - (int) (difficulty/.03));
     
     //choose direction randomly
     if (rand == 0){ 
@@ -69,7 +73,7 @@ public class Director {
         if (game.direction.x == game.right.x && game.direction.y == game.right.y) 
             pos = new PVector(0, random(0, windowHeight-100));
         
-        PVector vel = new PVector((int(random(15)+3)), 0);  
+        PVector vel = new PVector((int(random(5)+3+random(20*difficulty))), 0);  
         switchDirection(vel,game.direction);
           
         Platform platform = new Platform((int) pos.x, (int)  pos.y, (int)random(50,200), (int)random(15, 50), (int)  vel.x, (int)  vel.y);
@@ -110,7 +114,7 @@ public class Director {
   void swapAxis(PVector v){ float temp = v.x; v.x = v.y; v.y=temp; } //switches the x and y values
   
   void calculateDifficulty() {
-    difficulty =  (game.player.score-game.player.numDeaths+game.player.timeZone3)/100;
+    //difficulty =  (game.player.score-game.player.numDeaths+game.player.timeZone3)/100;
   }
   
   public void keyPressed(){
