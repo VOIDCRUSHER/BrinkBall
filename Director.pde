@@ -14,7 +14,19 @@
 
 public class Director{
   public Game game;
-  public Director(Game g){}
+  int platformVelDir; //NESW
+  int numPlatforms;
+  boolean targetPlatforms;
+  int difficulty;
+  
+  public Director(Game g){ 
+      this.game = g;
+      platformVelDir = 3; //NESW
+      numPlatforms = 10;
+      targetPlatforms = false;
+      difficulty = 0; 
+  }
+  
   public void tick(){
     //update beliefs based on player's performance
     //update game state as necessary
@@ -33,7 +45,37 @@ public class Director{
           //furthest from the direction they are traveling in (the side of the screen the player wants to get too)
             //Example: if the game/player direction is to the RIGHT (--->) 
             //game objects also spawn on the right, but move to the left
+    int rand = (int) random(100);
+    if (rand == 0)
+      game.player.setColor(getRandomColor());
+    while (game.platforms.size () < numPlatforms) {
+      //UP,DOWN,LEFT,RIGHT, SIDEWAYS
+      PVector pos = new PVector();
+      PVector vel = new PVector();
+      pos = new PVector(windowWidth, random(0+100, windowHeight-100));
+      vel = new PVector(-1*(int(random(15))), 0);
+
+      if  (platformVelDir == 1) {
+        pos = new PVector(0, random(0+100, windowHeight-100));
+        vel.mult(-1);
+      }
+
+      Platform platform = new Platform((int) pos.x, (int)  pos.y, (int)random(50, 200), (int)random(15, 50), (int)  vel.x, (int)  vel.y);
+      platform.setColor(getRandomColor());
+      game.platforms.add(platform);
+    }
   }
+  
+  public color getRandomColor() {
+    int rand = (int) random(3);
+    if (rand == 0)
+      return color(255,0,0); //RED
+    else if (rand == 1)
+      return color(0,255,0); //GREEN
+    else 
+      return color(0,0,255); //BLUE
+  }
+  
   public void loadState(){
       //load a previously saved game/agent from file
   }

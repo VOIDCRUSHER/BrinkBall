@@ -27,8 +27,10 @@ public abstract class GameObject{
         public int getWidth(){return mywidth;}
         public int getHeight(){return myheight;}
 	public PImage getImg(){return img;}
+        public color getColor(){return mycolor;}
         public Rectangle2D getBoundingBox(){return new Rectangle2D.Float(pos.x,pos.y,mywidth,myheight);}
 	//Setters
+        public void setColor(color mycolor){this.mycolor = mycolor;}
 	public void setPos(PVector pos){this.pos = pos;}
 	public void setPos(int x,int y){pos.x=x; pos.y=y;}
 	public void setVel(PVector vel){this.vel=vel;}
