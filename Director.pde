@@ -17,6 +17,7 @@ public class Director {
   int platformVelDir; //NESW
   int numPlatforms;
   boolean targetPlatforms;
+  boolean manualMode;
   float difficulty;
 
   public Director(Game g) { 
@@ -25,6 +26,7 @@ public class Director {
     numPlatforms = 5;
     targetPlatforms = false;
     difficulty = 0;
+    manualMode =false;
   }
 
   public void tick() {
@@ -78,7 +80,7 @@ public class Director {
         platform.setColor(getRandomColor());
         game.platforms.add(platform);
     }
-    calculateDifficulty();
+    if(!manualMode)  calculateDifficulty();
     fill(128);
     text("Diff: " + difficulty, windowWidth - 200, windowHeight-10);
   }
@@ -118,11 +120,13 @@ public class Director {
   public void keyPressed(){
     //.2 .4 .8 1
     switch(key) {
-      case '1':  difficulty = .2f ; break;
-      case '2':  difficulty = .4f; break;
-      case '3':  difficulty = .6f; break;
-      case '4':  difficulty = .8f; break;
-      case '5':  difficulty =  1f; break;
+      case '~':  manualMode = !manualMode;
+      case '0':  difficulty = 0f;  print(difficulty+"\n"); break;
+      case '1':  difficulty = .2f; print(difficulty+"\n"); break;
+      case '2':  difficulty = .4f; print(difficulty+"\n"); break;
+      case '3':  difficulty = .6f; print(difficulty+"\n"); break;
+      case '4':  difficulty = .8f; print(difficulty+"\n"); break;
+      case '5':  difficulty =  1f; print(difficulty+"\n"); break;
     }
   }
   
