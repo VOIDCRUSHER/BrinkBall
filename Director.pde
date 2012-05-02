@@ -13,7 +13,7 @@
 ////////////////////////////////////////////////////////////////
 
 public class Director{
-  public game;
+  public Game game;
   public Director(Game g){}
   public void tick(){
     //update beliefs based on player's performance

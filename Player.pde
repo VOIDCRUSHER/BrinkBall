@@ -1,11 +1,9 @@
 //PLAYER CLASS (derived from GameObjects)
 public class Player extends GameObject{
-  ArrayList<GameObject> gameobjects;
-  Player(int x, int y, ArrayList<GameObject> gameobjects) {
-    super(x,y,10,10,0,0);
+  Player(int x, int y) {
+    super(x,y,0,0,0,0);
     mycolor = color(250, 0, 0);
     this.setAccel(0,2);
-    this.gameobjects = gameobjects;
   }
 
   void draw() {
