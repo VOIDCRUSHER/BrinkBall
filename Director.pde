@@ -112,7 +112,14 @@ public class Director {
   }
   
   public void keyPressed(){
-  
+    //.2 .4 .8 1
+    switch(key) {
+      case '1':  difficulty = .2f ; break;
+      case '2':  difficulty = .4f; break;
+      case '3':  difficulty = .6f; break;
+      case '4':  difficulty = .8f; break;
+      case '5':  difficulty =  1f; break;
+    }
   }
   
   public void loadState() {
