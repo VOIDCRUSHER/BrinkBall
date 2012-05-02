@@ -103,12 +103,18 @@ public class Player extends GameObject {
       timeZone3 += timeOnLeft;
       timeZone2 += timeOnMiddle;
       timeZone1 += timeOnRight;
+      fill(128);
+      text("To Left",windowWidth-200, windowHeight-50);
     } 
     else if (vel.x < 0) {
       timeZone3 += timeOnRight;
       timeZone2 += timeOnMiddle;
       timeZone1 += timeOnLeft;
-    }
+      fill(128);
+      text("To Right",windowWidth-200, windowHeight-50);
+    
+    
+  }
   }
   void calculateAcceleration() {
     PVector pos = this.getPos();

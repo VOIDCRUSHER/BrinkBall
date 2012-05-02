@@ -98,7 +98,7 @@ public class Director {
     game.player.updateTimeZones();
     if (!manualMode)  calculateDifficulty();
     fill(128);
-    text("Diff: " + difficulty, windowWidth - 200, windowHeight-10);
+    text("Diff: " + difficulty, windowWidth - 300, windowHeight-10);
   }
 
   public color getRandomColor() {
