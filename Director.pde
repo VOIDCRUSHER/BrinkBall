@@ -31,8 +31,8 @@ public class Director{
           //etc...
           //note, object s should always be spawned from the side of the screen 
           //furthest from the direction they are traveling in (the side of the screen the player wants to get too)
-          //Example: if the game/player direction is to the RIGHT (--->) 
-          //game objects also spawn on the right, but move to the left
+            //Example: if the game/player direction is to the RIGHT (--->) 
+            //game objects also spawn on the right, but move to the left
   }
   public void loadState(){
       //load a previously saved game/agent from file
