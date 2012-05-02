@@ -27,7 +27,7 @@ public class Director {
     //update beliefs based on player's performance
     //update game state as necessary
     //update music/background? (on the wishlist)
-    println(game.gameobjects.size());
+    //println(game.gameobjects.size());
     while (game.gameobjects.size() < numObjects) {
       //UP,DOWN,LEFT,RIGHT, SIDEWAYS
       PVector pos = new PVector();

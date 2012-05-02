@@ -6,6 +6,7 @@ public class Player extends GameObject {
   boolean onObject = false;
   float timeZone1 = 0, timeZone2 = 0, timeZone3 = 0;
   public int score;
+  public float gravPull = -.1;
   Player(int x, int y, ArrayList<GameObject> gameobjects) {
     super(x, y, 10, 10, 0, 0);
     this.setColor("RED");
@@ -30,8 +31,15 @@ public class Player extends GameObject {
   void tick() {
     PVector pos = this.getPos();
     calculateAcceleration();
-    for (GameObject gO: gameobjects)
+
+    for (int i = gameobjects.size()-1; i >= 0; i--) {
+      GameObject gO = gameobjects.get(i);
       if (gO.collidesWith(this)) {
+        if (this.getColor().equals(gO.getColor())) {
+          score++;
+          gameobjects.remove(i);
+          continue;
+        }
         if (!onObject)
           numJumps++;
         onObject= true;
@@ -41,8 +49,8 @@ public class Player extends GameObject {
         //print("intersects");
         return;
       }
+    }
     onObject = false;
-
 
 
     if (right)
@@ -83,14 +91,12 @@ public class Player extends GameObject {
       timeZone1 += timeOnLeft;
     }
   }
-  void calculateAcceleration(){
-   PVector pos = this.getPos();
-   PVector tempAccel = new PVector(pos.x - windowWidth/2, pos.y - windowHeight/2);
-   tempAccel.mult(-1);
-   this.setAccel(tempAccel.x, tempAccel.y);
-    
+  void calculateAcceleration() {
+    PVector pos = this.getPos();
+    PVector tempAccel = new PVector(pos.x - windowWidth/2, pos.y - windowHeight/2);
+    tempAccel.mult(gravPull);
+    this.setAccel(tempAccel.x, tempAccel.y);
   }
-
 }
 
 void keyPressed() {
