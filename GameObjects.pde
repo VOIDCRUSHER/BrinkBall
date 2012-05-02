@@ -49,4 +49,20 @@ public abstract class GameObject{
         public boolean collidesWith(GameObject obj){
           return getBoundingBox().intersects(obj.getBoundingBox());
         }
+      void setColor(String str) {
+        if (str.equals("RED"))
+          this.mycolor = color(255, 0, 0);
+        else if (str.equals("BLUE"))
+          this.mycolor = color(0, 255, 0);
+        else this.mycolor = color(0, 0, 255);
+      }
+
+      String getColor() {
+        if (mycolor == color(255, 0, 0))
+          return "RED";
+        else if (mycolor == color(0, 255, 0))
+          return "GREEN";
+        else
+          return "BLUE";
+      }
 }

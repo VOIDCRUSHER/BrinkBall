@@ -12,38 +12,63 @@
 /// THAT YOU NEED, (I'M WORKING ON IT), AND I WILL IMPLEMENT IT
 ////////////////////////////////////////////////////////////////
 
-public class Director{
-  public game;
-  public Director(Game g){}
-  public void tick(){
+public class Director {
+  public Game game;
+  public Director(Game g) {
+    this.game = g;
+  }
+  int platformVelDir = 3; //NESW
+  int numObjects = 5;
+  boolean targetPlatforms = false;
+  int difficulty = 0;
+  public void tick() {
+    //grabbing
+
     //update beliefs based on player's performance
     //update game state as necessary
-        //update music/background? (on the wishlist)
-        //choose movement direction 
-          //UP,DOWN,LEFT,RIGHT, SIDEWAYS
-          //given any velocity or accel pairing this should be a simply a problem of, which of these, should I multiply by (-1)
-        //generate game objects
-          //choose type
-          //choose velocity
-          //choose accel
-          //choose placement
-          //choose color
-          //etc...
-          //note, object s should always be spawned from the side of the screen 
-          //furthest from the direction they are traveling in (the side of the screen the player wants to get too)
-            //Example: if the game/player direction is to the RIGHT (--->) 
-            //game objects also spawn on the right, but move to the left
+    //update music/background? (on the wishlist)
+  println("in director");
+    while (game.gameobjects.size () < numObjects) {
+      //UP,DOWN,LEFT,RIGHT, SIDEWAYS
+      PVector pos = new PVector();
+      PVector vel = new PVector();
+      pos = new PVector(windowWidth, random(0+100, windowHeight-100));
+      vel = new PVector(-1*(int(random(15))), 0);
+      //gameobjects.add(new Platform(windowWidth, j*100+100, (int)random(50, 200), (int)random(15, 50), -1*(int(random(15))), 0));
+
+      if  (platformVelDir == 1) {
+        pos = new PVector(0, random(0+100, windowHeight-100));
+        vel.mult(-1);
+      }
+      game.gameobjects.add(new Platform((int) pos.x, (int)  pos.y, (int)random(50, 200), (int)random(15, 50),(int)  vel.x,(int)  vel.y));
+//          gameobjects.add(new Platform(windowWidth, j*100+100, , -1*(int(random(15))), 0));
+
+    }
+    //choose movement direction 
+
+
+
+
+
+    //generate game objects
+    //choose type
+    //choose velocity
+    //choose accel
+    //choose placement
+    //choose color
+    //etc...
   }
-  public void loadState(){
-      //load a previously saved game/agent from file
+  public void loadState() {
+    //load a previously saved game/agent from file
   }
-  public void saveState(){
+  public void saveState() {
     //parse the game state/director into an array of strings
     //save director to data folder using the processing code
     //saveStrings("data/"+filename, strings)
   }
-  public void setStage(){
+  public void setStage() {
     //revert the game back to the state you got from file
     //if game's director is null, this a new game so initialize the game to Random
   }
 }
+

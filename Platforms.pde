@@ -11,5 +11,6 @@ public class Platform extends GameObject{
     rect(pos.x, pos.y, mywidth, myheight);
   }
   
+  
   void tick(){ move(); }
 }

@@ -4,35 +4,31 @@ public class Player extends GameObject {
   int numJumps = 0;
   int numDeaths = 0;
   boolean onObject = false;
-  float timeOnLeft = 0, timeOnMiddle = 0, timeOnRight = 0;
+  float timeZone1 = 0, timeZone2 = 0, timeZone3 = 0;
+  public int score;
   Player(int x, int y, ArrayList<GameObject> gameobjects) {
     super(x, y, 10, 10, 0, 0);
-    mycolor = color(250, 0, 0);
-    this.setAccel(0, 20);
+    this.setColor("RED");
+    this.setAccel(0, 0);
     this.gameobjects = gameobjects;
+    score = 0;
   }
-  
-  void reset(int x, int y){
-    this.setAccel(0,0);
-    this.setVel(0,0);
-    this.setPos(x,y);
+
+  void reset(int x, int y) {
+    this.setAccel(0, 0);
+    this.setVel(0, 0);
+    this.setPos(x, y);
   }
 
   void draw() {
     PVector pos = this.getPos();
     fill(mycolor);
     ellipse(pos.x, pos.y, mywidth, myheight);
+    fill(128);
+    text("Score: " + score, windowWidth - 100, windowHeight-10);
   }
   void tick() {
     PVector pos = this.getPos();
-    
-    if (pos.x < windowWidth*(float) 1/3)
-      timeOnLeft+=1/ (float) fRate;
-    else if (pos.x > windowWidth * (float) 2/3)
-      timeOnRight+=1/ (float)fRate;
-    else
-      timeOnMiddle+=1/(float)fRate;
-
 
     for (GameObject gO: gameobjects)
       if (gO.collidesWith(this)) {
@@ -64,6 +60,31 @@ public class Player extends GameObject {
     vel.x += accel.x*(1/(float)fRate);
     vel.y += accel.y*(1/(float)fRate);
   }
+  void updateTimeZones(int velDir) {
+    PVector pos = this.getPos();
+
+    float timeOnLeft = 0, timeOnMiddle = 0, timeOnRight = 0;
+
+    if (pos.x < windowWidth*(float) 1/3)
+      timeOnLeft+=1/ (float) fRate;
+    else if (pos.x > windowWidth * (float) 2/3)
+      timeOnRight+=1/ (float)fRate;
+    else
+      timeOnMiddle+=1/(float)fRate;
+
+    if (velDir == 1) {
+      timeZone3 += timeOnLeft;
+      timeZone2 += timeOnMiddle;
+      timeZone1 += timeOnRight;
+    } 
+    else if (velDir == 3) {
+      timeZone3 += timeOnRight;
+      timeZone2 += timeOnMiddle;
+      timeZone1 += timeOnLeft;
+    }
+  }
+
+
 }
 
 void keyPressed() {

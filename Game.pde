@@ -7,15 +7,18 @@ public class Game {
   public ArrayList<GameObject> gameobjects;
   Rectangle2D playbounds;
   public int buffer;
-  Player player;
+  public Player player;
   int playerStartX=20;
   int  playerStartY=40;
+  Director director;
   public Game() {
   }
 
   public void init() {
+    director = new Director(this);
+
     mode=PLAYING;
-    buffer = 50;
+    buffer = 100;
     gameobjects = new ArrayList<GameObject>();
     playbounds = new Rectangle2D.Float(-buffer, -buffer, windowWidth+2*buffer, windowHeight+2*buffer);
     //for (int i = 0; i < 5; i++)
@@ -25,8 +28,9 @@ public class Game {
 
   public void tick() {
     if (mode==PLAYING) {
+      director.tick();
+
       player.tick();
-      println(gameobjects.size());
       if (!playbounds.contains(player.getBoundingBox())) {
         player.reset(playerStartX, playerStartY);
         player.numDeaths++;
@@ -39,9 +43,6 @@ public class Game {
         if (!(playbounds.contains(gameobjects.get(i).getBoundingBox()) 
           || playbounds.intersects(gameobjects.get(i).getBoundingBox()))) gameobjects.remove(i);
       }
-      if (gameobjects.isEmpty())    
-        for (int j = 0; j < 5; j++)
-          gameobjects.add(new Platform(windowWidth, j*100+100, (int)random(50, 200), (int)random(15, 50), -1*(int(random(15))), 0));
     }
     else if (mode==PAUSEMENU) {
     }
