@@ -55,7 +55,7 @@ public class Director {
     //change colors randomly
     int rand = (int) random(100-(int) (difficulty/.03));
     if (rand == 0) game.player.setColor(getRandomColor());
-    rand = (int) random(100 - (int) (difficulty/.03));
+    rand = (int) random(100 - (int) (difficulty/.02));
     
     //choose direction randomly
     if (rand == 0){ 
@@ -80,6 +80,7 @@ public class Director {
         platform.setColor(getRandomColor());
         game.platforms.add(platform);
     }
+    game.player.updateTimeZones();
     if(!manualMode)  calculateDifficulty();
     fill(128);
     text("Diff: " + difficulty, windowWidth - 200, windowHeight-10);
@@ -114,7 +115,7 @@ public class Director {
   void swapAxis(PVector v){ float temp = v.x; v.x = v.y; v.y=temp; } //switches the x and y values
   
   void calculateDifficulty() {
-    //difficulty =  (game.player.score-game.player.numDeaths+game.player.timeZone3)/100;
+    difficulty =  (game.player.score-game.player.numDeaths+game.player.timeZone3)/100;
   }
   
   public void keyPressed(){

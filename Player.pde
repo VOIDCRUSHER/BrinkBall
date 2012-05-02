@@ -23,6 +23,7 @@ public class Player extends GameObject{
     ellipse(pos.x, pos.y, mywidth, myheight);
     fill(128);
     text("Score: " + score, windowWidth - 100, windowHeight-10);
+    println(timeZone1);
   }
   void tick() {
     PVector pos = this.getPos();
@@ -65,7 +66,14 @@ void reset() {
     this.setPos(game.playerStartX, game.playerStartY);
   }
 void kill(){ reset(); numDeaths++; if(numDeaths>game.maxdeaths)game.lose();}
-void updateTimeZones(int velDir) {
+void updateTimeZones() {
+    if (game.platforms.size() == 0)
+    return;
+    
+    GameObject platform = game.platforms.get(0);
+    
+
+    
     PVector pos = this.getPos();
 
     float timeOnLeft = 0, timeOnMiddle = 0, timeOnRight = 0;
@@ -76,13 +84,14 @@ void updateTimeZones(int velDir) {
       timeOnRight+=1/ (float)fRate;
     else
       timeOnMiddle+=1/(float)fRate;
-
-    if (velDir == 1) {
+      
+    PVector vel = platform.getVel();
+    if (vel.x >= 0) {
       timeZone3 += timeOnLeft;
       timeZone2 += timeOnMiddle;
       timeZone1 += timeOnRight;
     } 
-    else if (velDir == 3) {
+    else if (vel.x < 0) {
       timeZone3 += timeOnRight;
       timeZone2 += timeOnMiddle;
       timeZone1 += timeOnLeft;
