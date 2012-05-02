@@ -90,4 +90,5 @@ public class Game {
 
 void keyPressed() {
   brinkball.player.keyPressed();
+  brinkball.director.keyPressed();
 }

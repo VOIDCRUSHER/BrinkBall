@@ -59,16 +59,15 @@ public class Director {
     
     while (game.platforms.size () < numPlatforms) {
         //UP,DOWN,LEFT,RIGHT
-        PVector pos = new PVector();
-        PVector vel = new PVector();
+        PVector pos = new PVector(random(0, windowWidth-100),windowHeight);
+        if (game.direction.x == game.down.x && game.direction.y == game.down.y)  
+            pos = new PVector(random(0, windowWidth-100),-100);
+        if (game.direction.x == game.left.x && game.direction.y == game.left.y)  
+            pos = new PVector(windowWidth, random(0, windowHeight-100));
+        if (game.direction.x == game.right.x && game.direction.y == game.right.y) 
+            pos = new PVector(0, random(0, windowHeight-100));
         
-        vel = new PVector((int(random(15)+3)), 0);
-  
-        if (game.direction == game.up)    pos = new PVector(random(0, windowWidth-100),windowHeight);
-        if (game.direction == game.down)  pos = new PVector(random(0, windowWidth-100),-100);
-        if (game.direction == game.left)  pos = new PVector(windowWidth, random(0, windowHeight-100));
-        if (game.direction == game.right) pos = new PVector(0, random(0, windowHeight-100));
-        
+        PVector vel = new PVector((int(random(15)+3)), 0);  
         switchDirection(vel,game.direction);
           
         Platform platform = new Platform((int) pos.x, (int)  pos.y, (int)random(50,200), (int)random(15, 50), (int)  vel.x, (int)  vel.y);
@@ -111,6 +110,11 @@ public class Director {
   void calculateDifficulty() {
     difficulty =  (game.player.score-game.player.numDeaths+game.player.timeZone3)/100;
   }
+  
+  public void keyPressed(){
+  
+  }
+  
   public void loadState() {
     //load a previously saved game/agent from file
   }
