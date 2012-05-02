@@ -29,7 +29,7 @@ public class Game {
     //make a new player
     player = new Player(playerStartX,playerStartY,this);
     //Set pieces to move to the right
-    direction = left;
+    direction = new PVector(left.x,left.y);
     //Create a director to generate content
     director = new Director(this);
     ticks = 0;
