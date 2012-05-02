@@ -22,7 +22,7 @@ public class Director {
   public Director(Game g) { 
     this.game = g;
     platformVelDir = 1; //NESW
-    numPlatforms = 10;
+    numPlatforms = 5;
     targetPlatforms = false;
     difficulty = 0;
   }
@@ -45,6 +45,8 @@ public class Director {
     //furthest from the direction they are traveling in (the side of the screen the player wants to get too)
     //Example: if the game/player direction is to the RIGHT (--->) 
     //game objects also spawn on the right, but move to the left
+    
+    numPlatforms = 5+ (int) (difficulty/.1);
     
     //change colors randomly
     int rand = (int) random(100);
