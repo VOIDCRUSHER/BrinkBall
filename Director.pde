@@ -27,29 +27,24 @@ public class Director {
     //update beliefs based on player's performance
     //update game state as necessary
     //update music/background? (on the wishlist)
-  println("in director");
-    while (game.gameobjects.size () < numObjects) {
+    println(game.gameobjects.size());
+    while (game.gameobjects.size() < numObjects) {
       //UP,DOWN,LEFT,RIGHT, SIDEWAYS
       PVector pos = new PVector();
       PVector vel = new PVector();
       pos = new PVector(windowWidth, random(0+100, windowHeight-100));
       vel = new PVector(-1*(int(random(15))), 0);
-      //gameobjects.add(new Platform(windowWidth, j*100+100, (int)random(50, 200), (int)random(15, 50), -1*(int(random(15))), 0));
 
       if  (platformVelDir == 1) {
         pos = new PVector(0, random(0+100, windowHeight-100));
         vel.mult(-1);
       }
-      game.gameobjects.add(new Platform((int) pos.x, (int)  pos.y, (int)random(50, 200), (int)random(15, 50),(int)  vel.x,(int)  vel.y));
-//          gameobjects.add(new Platform(windowWidth, j*100+100, , -1*(int(random(15))), 0));
 
+      Platform platform = new Platform((int) pos.x, (int)  pos.y, (int)random(50, 200), (int)random(15, 50), (int)  vel.x, (int)  vel.y);
+      platform.setColor(getRandomColor());
+        game.gameobjects.add(platform);
     }
     //choose movement direction 
-
-
-
-
-
     //generate game objects
     //choose type
     //choose velocity
@@ -57,6 +52,16 @@ public class Director {
     //choose placement
     //choose color
     //etc...
+  }
+
+  public String getRandomColor() {
+    int rand = (int) random(3);
+    if (rand == 0)
+      return "RED";
+    else if (rand == 1)
+      return "GREEN";
+    else 
+      return "BLUE";
   }
   public void loadState() {
     //load a previously saved game/agent from file

@@ -29,7 +29,7 @@ public class Player extends GameObject {
   }
   void tick() {
     PVector pos = this.getPos();
-
+    calculateAcceleration();
     for (GameObject gO: gameobjects)
       if (gO.collidesWith(this)) {
         if (!onObject)
@@ -83,7 +83,13 @@ public class Player extends GameObject {
       timeZone1 += timeOnLeft;
     }
   }
-
+  void calculateAcceleration(){
+   PVector pos = this.getPos();
+   PVector tempAccel = new PVector(pos.x - windowWidth/2, pos.y - windowHeight/2);
+   tempAccel.mult(-1);
+   this.setAccel(tempAccel.x, tempAccel.y);
+    
+  }
 
 }
 
