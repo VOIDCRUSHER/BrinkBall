@@ -114,13 +114,13 @@ public class Director {
   void swapAxis(PVector v){ float temp = v.x; v.x = v.y; v.y=temp; } //switches the x and y values
   
   void calculateDifficulty() {
-    difficulty =  (game.player.score-game.player.numDeaths+game.player.timeZone3)/100;
+    //difficulty =  (game.player.score-game.player.numDeaths+game.player.timeZone3)/100;
   }
   
   public void keyPressed(){
     //.2 .4 .8 1
     switch(key) {
-      case '~':  manualMode = !manualMode;
+      case '~':  manualMode = !manualMode; break;
       case '0':  difficulty = 0f;  print(difficulty+"\n"); break;
       case '1':  difficulty = .2f; print(difficulty+"\n"); break;
       case '2':  difficulty = .4f; print(difficulty+"\n"); break;
