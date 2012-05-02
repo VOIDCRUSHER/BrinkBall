@@ -1,5 +1,5 @@
 //PLAYER CLASS (derived from GameObjects)
-public class Player extends GameObject{
+public class Player extends GameObject {
   int numJumps = 0;
   int numDeaths = 0;
   boolean onObject = false;
@@ -8,10 +8,10 @@ public class Player extends GameObject{
   public float gravPull = -.1;
   public float speed = (windowWidth)/2; //default speed for player (can cross the screen in 5 seconds)
   Game game;
-  
-  Player(int x, int y,Game g) {
+
+  Player(int x, int y, Game g) {
     super(x, y, 20, 20, 0, 0);
-    this.setColor(color(255,0,0));
+    this.setColor(color(255, 0, 0));
     this.setAccel(0, 0);
     score = 0;
     game = g;
@@ -23,34 +23,43 @@ public class Player extends GameObject{
     ellipse(pos.x, pos.y, mywidth, myheight);
     fill(128);
     text("Score: " + score, windowWidth - 100, windowHeight-10);
-    println(timeZone1);
+    //println(timeZone1);
   }
   void tick() {
     PVector pos = this.getPos();
     //calculateAcceleration();
-    
+
     for (int i = 0; i < game.platforms.size(); i++) {
       GameObject gO = game.platforms.get(i);
       if (gO.collidesWith(this)) {
-        
+
         if (this.getColor() == gO.getColor()) {
           score++;
           game.platforms.remove(i);
           continue;
         }
-        
+
         if (!onObject)
           numJumps++;
         onObject= true;
-        this.getPos().y = gO.getPos().y - this.myheight;
-        this.setVel(new PVector(gO.getVel().x, gO.getVel().y));
+        //this.getPos().y = gO.getPos().y - this.myheight;
+        if (this.getPos().x+this.getWidth() <= gO.getPos().x)
+          this.setVel(this.getVel().y, this.getVel().x);
+        else if (this.getPos().x >= gO.getPos().x + gO.getWidth())
+          this.setVel(this.getVel().x, this.getVel().y);
+        else
+          this.getVel().mult(-1);
+
+        pos.x += 2*vel.x*(1/(float)fRate);
+        pos.y += 2*vel.y*(1/(float)fRate);
+        //this.setVel(new PVector(gO.getVel().x, gO.getVel().y));
         //this.getPos().y += gO.getVel().y*(1/(float)fRate);
         //print("intersects");
         return;
       }
     }
     onObject = false;
-    
+
 
     PVector vel = this.getVel();
     PVector accel = this.getAccel();
@@ -60,20 +69,24 @@ public class Player extends GameObject{
     vel.y += accel.y*(1/(float)fRate);
   }
 
-void reset() {
+  void reset() {
     this.setAccel(0, 0);
     this.setVel(0, 0);
     this.setPos(game.playerStartX, game.playerStartY);
   }
-void kill(){ reset(); numDeaths++; if(numDeaths>game.maxdeaths)game.lose();}
-void updateTimeZones() {
+  void kill() { 
+    reset(); 
+    numDeaths++; 
+    if (numDeaths>game.maxdeaths)game.lose();
+  }
+  void updateTimeZones() {
     if (game.platforms.size() == 0)
-    return;
-    
-    GameObject platform = game.platforms.get(0);
-    
+      return;
 
-    
+    GameObject platform = game.platforms.get(0);
+
+
+
     PVector pos = this.getPos();
 
     float timeOnLeft = 0, timeOnMiddle = 0, timeOnRight = 0;
@@ -84,7 +97,7 @@ void updateTimeZones() {
       timeOnRight+=1/ (float)fRate;
     else
       timeOnMiddle+=1/(float)fRate;
-      
+
     PVector vel = platform.getVel();
     if (vel.x >= 0) {
       timeZone3 += timeOnLeft;
@@ -105,10 +118,22 @@ void updateTimeZones() {
   }
   void keyPressed() {
     switch(keyCode) {
-      case RIGHT:       System.out.println(keyCode); setVel(speed,0); break;
-      case LEFT:        System.out.println(keyCode);setVel(-1*speed,0); break;
-      case UP:          System.out.println(keyCode);setVel(0,-1*speed); break;
-      case DOWN:        System.out.println(keyCode);setVel(0,speed); break;
+    case RIGHT:       
+      System.out.println(keyCode); 
+      setVel(speed, 0); 
+      break;
+    case LEFT:        
+      System.out.println(keyCode);
+      setVel(-1*speed, 0); 
+      break;
+    case UP:          
+      System.out.println(keyCode);
+      setVel(0, -1*speed); 
+      break;
+    case DOWN:        
+      System.out.println(keyCode);
+      setVel(0, speed); 
+      break;
     }
   }
 }

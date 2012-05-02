@@ -19,7 +19,8 @@ public class Director {
   boolean targetPlatforms;
   boolean manualMode;
   float difficulty;
-
+  float timeToNextBeat = 5f+random(5);
+  int beatCounter = 10;
   public Director(Game g) { 
     this.game = g;
     platformVelDir = 1; //NESW
@@ -27,6 +28,7 @@ public class Director {
     targetPlatforms = false;
     difficulty = 0;
     manualMode =false;
+    //song.play();
   }
 
   public void tick() {
@@ -47,41 +49,54 @@ public class Director {
     //furthest from the direction they are traveling in (the side of the screen the player wants to get too)
     //Example: if the game/player direction is to the RIGHT (--->) 
     //game objects also spawn on the right, but move to the left
-    
+
+    beat.detect(song.mix);
+    if (beat.isOnset())
+      beatCounter--;
+
+    if (beatCounter == 0) {
+      beatCounter = 10; 
+      PVector pos = new PVector(0,(int) random(windowHeight));
+      PVector vel = new PVector(10,0);
+      Platform platform = new Platform((int) pos.x, (int)  pos.y, (int)random(50, 200), (int)random(15, 50), (int)  vel.x, (int)  vel.y);
+      platform.setColor(color(128));
+      game.platforms.add(platform);
+    }
+
     numPlatforms = 5+ (int) (difficulty/.1);
     game.player.setWidth(20+(int) (difficulty/.05));
     game.player.setHeight(20+(int) (difficulty/.05));
-    
+
     //change colors randomly
     int rand = (int) random(100-(int) (difficulty/.03));
     if (rand == 0) game.player.setColor(getRandomColor());
     rand = (int) random(100 - (int) (difficulty/.02));
-    
+
     //choose direction randomly
-    if (rand == 0){ 
+    if (rand == 0) { 
       game.direction = chooseDirRand();
       shiftDirections();
     }
-    
+
     while (game.platforms.size () < numPlatforms) {
-        //UP,DOWN,LEFT,RIGHT
-        PVector pos = new PVector(random(0, windowWidth-100),windowHeight);
-        if (game.direction.x == game.down.x && game.direction.y == game.down.y)  
-            pos = new PVector(random(0, windowWidth-100),-100);
-        if (game.direction.x == game.left.x && game.direction.y == game.left.y)  
-            pos = new PVector(windowWidth, random(0, windowHeight-100));
-        if (game.direction.x == game.right.x && game.direction.y == game.right.y) 
-            pos = new PVector(0, random(0, windowHeight-100));
-        
-        PVector vel = new PVector((int(random(5)+3+random(20*difficulty))), 0);  
-        switchDirection(vel,game.direction);
-          
-        Platform platform = new Platform((int) pos.x, (int)  pos.y, (int)random(50,200), (int)random(15, 50), (int)  vel.x, (int)  vel.y);
-        platform.setColor(getRandomColor());
-        game.platforms.add(platform);
+      //UP,DOWN,LEFT,RIGHT
+      PVector pos = new PVector(random(0, windowWidth-100), windowHeight);
+      if (game.direction.x == game.down.x && game.direction.y == game.down.y)  
+        pos = new PVector(random(0, windowWidth-100), -100);
+      if (game.direction.x == game.left.x && game.direction.y == game.left.y)  
+        pos = new PVector(windowWidth, random(0, windowHeight-100));
+      if (game.direction.x == game.right.x && game.direction.y == game.right.y) 
+        pos = new PVector(0, random(0, windowHeight-100));
+
+      PVector vel = new PVector((int(random(5)+3+random(20*difficulty))), 0);  
+      switchDirection(vel, game.direction);
+
+      Platform platform = new Platform((int) pos.x, (int)  pos.y, (int)random(50, 200), (int)random(15, 50), (int)  vel.x, (int)  vel.y);
+      platform.setColor(getRandomColor());
+      game.platforms.add(platform);
     }
     game.player.updateTimeZones();
-    if(!manualMode)  calculateDifficulty();
+    if (!manualMode)  calculateDifficulty();
     fill(128);
     text("Diff: " + difficulty, windowWidth - 200, windowHeight-10);
   }
@@ -95,41 +110,69 @@ public class Director {
     else 
       return color(0, 0, 255); //BLUE
   }
-  
-  public PVector chooseDirRand(){
-      PVector newDir = new PVector(game.direction.x,game.direction.y); 
-      if( ((int)random(2)) == 0) swapAxis(game.direction); //switch orientation
-      newDir.mult( (((int)random(2)) == 0)? 1: -1 );   //flip the direction
-      return newDir;
+
+  public PVector chooseDirRand() {
+    PVector newDir = new PVector(game.direction.x, game.direction.y); 
+    if ( ((int)random(2)) == 0) swapAxis(game.direction); //switch orientation
+    newDir.mult( (((int)random(2)) == 0)? 1: -1 );   //flip the direction
+    return newDir;
   } 
-  
-  void switchDirection(PVector oldDir, PVector newDir){
-    if(oldDir.dot(newDir)==0) swapAxis(oldDir);
-    if(oldDir.dot(newDir)< 0) oldDir.mult(-1);
+
+  void switchDirection(PVector oldDir, PVector newDir) {
+    if (oldDir.dot(newDir)==0) swapAxis(oldDir);
+    if (oldDir.dot(newDir)< 0) oldDir.mult(-1);
   }
-  
-  void shiftDirections(){
-      for(GameObject obj: game.platforms) switchDirection(obj.vel,game.direction);
+
+  void shiftDirections() {
+    for (GameObject obj: game.platforms) switchDirection(obj.vel, game.direction);
   }
-  
-  void swapAxis(PVector v){ float temp = v.x; v.x = v.y; v.y=temp; } //switches the x and y values
-  
+
+  void swapAxis(PVector v) { 
+    float temp = v.x; 
+    v.x = v.y; 
+    v.y=temp;
+  } //switches the x and y values
+
   void calculateDifficulty() {
-    difficulty =  (game.player.score-game.player.numDeaths+game.player.timeZone3)/100;
+    difficulty =  (game.player.score-3*game.player.numDeaths+(2*game.player.timeZone1-game.player.timeZone3)/50)/100;
+    if (difficulty < 0)
+      difficulty = 0;
+    if (difficulty > 1)
+      difficulty = 1;
   }
-  
-  public void keyPressed(){
+
+  public void keyPressed() {
     switch(key) {
-      case '~':  manualMode = !manualMode; break;
-      case '0':  difficulty = 0f;  print(difficulty+"\n"); break;
-      case '1':  difficulty = .2f; print(difficulty+"\n"); break;
-      case '2':  difficulty = .4f; print(difficulty+"\n"); break;
-      case '3':  difficulty = .6f; print(difficulty+"\n"); break;
-      case '4':  difficulty = .8f; print(difficulty+"\n"); break;
-      case '5':  difficulty =  1f; print(difficulty+"\n"); break;
+    case '~':  
+      manualMode = !manualMode; 
+      break;
+    case '0':  
+      difficulty = 0f;  
+      print(difficulty+"\n"); 
+      break;
+    case '1':  
+      difficulty = .2f; 
+      print(difficulty+"\n"); 
+      break;
+    case '2':  
+      difficulty = .4f; 
+      print(difficulty+"\n"); 
+      break;
+    case '3':  
+      difficulty = .6f; 
+      print(difficulty+"\n"); 
+      break;
+    case '4':  
+      difficulty = .8f; 
+      print(difficulty+"\n"); 
+      break;
+    case '5':  
+      difficulty =  1f; 
+      print(difficulty+"\n"); 
+      break;
     }
   }
-  
+
   public void loadState() {
     //load a previously saved game/agent from file
   }
