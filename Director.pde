@@ -53,7 +53,7 @@ public class Director {
     game.player.setHeight(20+(int) (difficulty/.05));
     
     //change colors randomly
-    int rand = (int) random(100-(int) (difficulty/.02);
+    int rand = (int) random(100-(int) (difficulty/.02));
     if (rand == 0) game.player.setColor(getRandomColor());
     rand = (int) random(100);
     
