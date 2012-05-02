@@ -33,7 +33,6 @@ public class Director {
     if (rand == 0)
       game.player.setColor(getRandomColor());
     while (game.gameobjects.size () < numObjects) {
-      //UP,DOWN,LEFT,RIGHT, SIDEWAYS
       PVector pos = new PVector();
       PVector vel = new PVector();
       pos = new PVector(windowWidth, random(0+100, windowHeight-100));

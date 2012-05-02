@@ -58,6 +58,12 @@ public class Game {
       obj.draw();
     }  
     player.draw();
+    
+    stroke(128);
+    int distance = (int) player.getPos().dist(new PVector(windowWidth/2, windowHeight/2));
+    strokeWeight(distance/100);
+    line(player.getPos().x, player.getPos().y, windowWidth/2, windowHeight/2);
+    noStroke();
   }
 }//end class Game
 
