@@ -53,9 +53,9 @@ public class Director {
     game.player.setHeight(20+(int) (difficulty/.05));
     
     //change colors randomly
-    int rand = (int) random(100-(int) (difficulty/.02));
+    int rand = (int) random(100-(int) (difficulty/.03));
     if (rand == 0) game.player.setColor(getRandomColor());
-    rand = (int) random(100);
+    rand = (int) random(100 - (int) (difficulty/.03));
     
     //choose direction randomly
     if (rand == 0){ 
@@ -73,7 +73,7 @@ public class Director {
         if (game.direction.x == game.right.x && game.direction.y == game.right.y) 
             pos = new PVector(0, random(0, windowHeight-100));
         
-        PVector vel = new PVector((int(random(15)+3)), 0);  
+        PVector vel = new PVector((int(random(5)+3+random(20*difficulty))), 0);  
         switchDirection(vel,game.direction);
           
         Platform platform = new Platform((int) pos.x, (int)  pos.y, (int)random(50,200), (int)random(15, 50), (int)  vel.x, (int)  vel.y);
