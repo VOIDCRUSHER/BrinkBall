@@ -18,7 +18,7 @@ public class Director {
     this.game = g;
   }
   int platformVelDir = 3; //NESW
-  int numObjects = 5;
+  int numObjects = 10;
   boolean targetPlatforms = false;
   int difficulty = 0;
   public void tick() {
@@ -28,7 +28,11 @@ public class Director {
     //update game state as necessary
     //update music/background? (on the wishlist)
     //println(game.gameobjects.size());
-    while (game.gameobjects.size() < numObjects) {
+
+    int rand = (int) random(100);
+    if (rand == 0)
+      game.player.setColor(getRandomColor());
+    while (game.gameobjects.size () < numObjects) {
       //UP,DOWN,LEFT,RIGHT, SIDEWAYS
       PVector pos = new PVector();
       PVector vel = new PVector();
@@ -42,7 +46,7 @@ public class Director {
 
       Platform platform = new Platform((int) pos.x, (int)  pos.y, (int)random(50, 200), (int)random(15, 50), (int)  vel.x, (int)  vel.y);
       platform.setColor(getRandomColor());
-        game.gameobjects.add(platform);
+      game.gameobjects.add(platform);
     }
     //choose movement direction 
     //generate game objects

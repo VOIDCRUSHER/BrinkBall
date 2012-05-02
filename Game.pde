@@ -18,7 +18,7 @@ public class Game {
     director = new Director(this);
 
     mode=PLAYING;
-    buffer = 100;
+    buffer = 50;
     gameobjects = new ArrayList<GameObject>();
     playbounds = new Rectangle2D.Float(-buffer, -buffer, windowWidth+2*buffer, windowHeight+2*buffer);
     //for (int i = 0; i < 5; i++)
