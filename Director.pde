@@ -119,7 +119,6 @@ public class Director {
   }
   
   public void keyPressed(){
-    //.2 .4 .8 1
     switch(key) {
       case '~':  manualMode = !manualMode; break;
       case '0':  difficulty = 0f;  print(difficulty+"\n"); break;
