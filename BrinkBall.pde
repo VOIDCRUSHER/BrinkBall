@@ -5,7 +5,6 @@ int fRate = 30;
 int windowWidth = 800;
 int windowHeight = 600;
 int buffer = 100;
-boolean right = false, left = false, up = false, down=false;
 
 void setup() { 
   size(windowWidth, windowHeight, OPENGL);

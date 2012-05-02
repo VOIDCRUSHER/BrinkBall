@@ -3,13 +3,14 @@ public class Player extends GameObject{
   int numJumps = 0;
   int numDeaths = 0;
   boolean onObject = false;
-  float timeZone1 = 0, timeZone2 = 0, timeZone3 = 0;
+  public float timeZone1 = 0, timeZone2 = 0, timeZone3 = 0;
   public int score;
   public float gravPull = -.1;
+  public float speed = (windowWidth)/2; //default speed for player (can cross the screen in 5 seconds)
   Game game;
   
   Player(int x, int y,Game g) {
-    super(x, y, 10, 10, 0, 0);
+    super(x, y, 20, 20, 0, 0);
     this.setColor(color(255,0,0));
     this.setAccel(0, 0);
     score = 0;
@@ -19,13 +20,13 @@ public class Player extends GameObject{
   void draw() {
     PVector pos = this.getPos();
     fill(mycolor);
-    ellipse(pos.x, pos.y, 10*mywidth, 10*myheight);
+    ellipse(pos.x, pos.y, mywidth, myheight);
     fill(128);
     text("Score: " + score, windowWidth - 100, windowHeight-10);
   }
   void tick() {
     PVector pos = this.getPos();
-    calculateAcceleration();
+    //calculateAcceleration();
     
     for (int i = 0; i < game.platforms.size(); i++) {
       GameObject gO = game.platforms.get(i);
@@ -49,14 +50,7 @@ public class Player extends GameObject{
     }
     onObject = false;
     
-    if (right)
-      this.getVel().x++;
-    if (left)
-      this.getVel().x--;
-    if (up)
-      this.getVel().y--;
-    if (down)
-      this.getVel().y++;
+
     PVector vel = this.getVel();
     PVector accel = this.getAccel();
     pos.x += vel.x*(1/(float)fRate);
@@ -70,7 +64,7 @@ void reset() {
     this.setVel(0, 0);
     this.setPos(game.playerStartX, game.playerStartY);
   }
-  
+void kill(){ reset(); numDeaths++; if(numDeaths>game.maxdeaths)game.lose();}
 void updateTimeZones(int velDir) {
     PVector pos = this.getPos();
 
@@ -100,21 +94,13 @@ void updateTimeZones(int velDir) {
     tempAccel.mult(gravPull);
     this.setAccel(tempAccel.x, tempAccel.y);
   }
+  void keyPressed() {
+    switch(keyCode) {
+      case RIGHT:       System.out.println(keyCode); setVel(speed,0); break;
+      case LEFT:        System.out.println(keyCode);setVel(-1*speed,0); break;
+      case UP:          System.out.println(keyCode);setVel(0,-1*speed); break;
+      case DOWN:        System.out.println(keyCode);setVel(0,speed); break;
+    }
+  }
 }
 
-void keyPressed() {
-  switch(keyCode) {
-    case RIGHT: right = true; break;
-    case LEFT: left = true; break;
-    case UP: up = true; break;
-    case DOWN: down = true; break;
-  }
-}
-void keyReleased() {
-  switch(keyCode) {
-    case RIGHT: right = false; break;
-    case LEFT: left = false; break;
-    case UP: up = false; break;
-    case DOWN: down = false; break;
-  }
-}
