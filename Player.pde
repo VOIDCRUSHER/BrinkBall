@@ -12,14 +12,14 @@ public class Player extends GameObject{
     ellipse(pos.x, pos.y, mywidth, myheight);
   }
   void tick() {
-    for (GameObject gO: gameobjects)
-      if (gO.collidesWith(this)) {
-        this.getPos().y = gO.getPos().y - this.myheight;
-        this.setVel(new PVector(gO.getVel().x, gO.getVel().y));
-        //this.getPos().y += gO.getVel().y*(1/(float)fRate);
-        //print("intersects");
-        return;
-      }
+//    for (GameObject gO: gameobjects)
+//      if (gO.collidesWith(this)) {
+//        this.getPos().y = gO.getPos().y - this.myheight;
+//        this.setVel(new PVector(gO.getVel().x, gO.getVel().y));
+//        //this.getPos().y += gO.getVel().y*(1/(float)fRate);
+//        //print("intersects");
+//        return;
+//      }
 
     PVector pos = this.getPos();
     if (right)

@@ -45,7 +45,7 @@ public class Game {
       //spawn more platforms to keep the game going
       if(platforms.isEmpty())    
             for (int j = 0; j < 10; j++)
-              platforms.add(new Platform(windowWidth, j*10, (int)random(50,200),(int)random(15,50), -1*(int(random(50))+10), 0));
+              platforms.add(new Platform(windowWidth, (int)random(windowHeight), (int)random(50,200),(int)random(15,50), -1*(int(random(50))+10), 0));
     }
     else if (mode==PAUSEMENU) {
     }
@@ -60,7 +60,7 @@ public class Game {
   }
   public void draw() {
     for (GameObject item : items) { ((Item)item).draw(); }
-    player.draw();
+    //player.draw();
     for (GameObject platform : platforms) { ((Platform)platform).draw(); }  
   }
   public void win(){}
